@@ -1,0 +1,21 @@
+var BussinesTime = ({start, end}, time, duration)=>{
+    let remainigTime = duration * 1000;
+    let estimatedEnd = time.getTime() + remainigTime;
+    const progression = duration >= 0 ? true : false;
+    const earlier = progression ? time.getTime() : estimatedEnd;
+    const later = progression ? estimatedEnd : time.getTime();
+
+    if (later < start.getTime() || earlier > end.getTime()){
+        return new Date(estimatedEnd);
+    }else{
+        if (progression){
+            if (start.getTime() > time.getTime())
+                remainigTime -= Math.abs(start.getTime() - time.getTime());
+            return new Date(end.getTime() + remainigTime);    
+        }else{
+            if (end.getTime() < time.getTime())
+                remainigTime += Math.abs(end.getTime - time.getTime());
+            return new Date(start.getTime() + remainigTime);    
+        }
+    }
+}
